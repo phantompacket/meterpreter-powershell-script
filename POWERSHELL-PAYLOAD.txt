@@ -1,5 +1,8 @@
 # The following is a step-by-step instructional that will teach you to generate a Windows 7/8/10 payload using msfvenom.
 # You will serve/host this payload using Apache2 - you will download and execute the payload on the target using a Powershell script
+# OPTIONAL: Your Powershell Payload can be converted to "Ducky Script" and executed with a Hak5 Rubber Ducky
+# Using this method with a Rubber Ducky will allow you to exploit nearly all Windows machines in mere seconds
+# Refer to "powershell-meterpreter-RUBBERDUCK-PAYLOAD.txt" for a working example of a Rubber-Ducky payload.
 
 STEP 1: Create your payload using msfvenom. 
   
