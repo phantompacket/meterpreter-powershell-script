@@ -1,3 +1,6 @@
+# The following is a step-by-step instructional that will teach you to generate a Windows 7/8/10 payload using msfvenom.
+# You will serve/host this payload using Apache2 - you will download and execute the payload on the target using a Powershell script
+
 STEP 1: Create your payload using msfvenom. 
   
  -For the sake of this tutorial, I will be targeting WINDOWS 10
